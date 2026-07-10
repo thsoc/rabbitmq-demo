@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  #MQ配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
+    virtual-host: /
+    # 生产者
+    publisher-confirm-type: correlated #开启 Confirm
+    publisher-returns: true # 开启 Return（路由失败回调）
+    template:
+      mandatory: true #Return机制生效
+#    #消费者
+#    listener:
+#      simple:
+#        acknowledge-mode: manual   # 手动 ACK
+#        prefetch: 10               # 每次预取多少条
+#        concurrency: 5             # 最小并发消费者数
+#        max-concurrency: 20        # 最大并发
+#        retry:
+#          enabled: true
+#          max-attempts: 3
+    # 公共配置
+    cache:
+      connection:
+        mode: channel
+      channel:
+        size: 50
+    connection-timeout: 5000
